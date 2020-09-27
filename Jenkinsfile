@@ -1,5 +1,4 @@
 pipeline {
-  
   agent any
   stages {	
 	stage('Maven Compile'){
@@ -9,9 +8,6 @@ pipeline {
 	       	}
 	}
 	
-	}
-	
-	
 	stage('Unit Test') {
 	   steps {
 			echo 'Project Testing stage'
@@ -19,21 +15,7 @@ pipeline {
 	       
        }
    	}
-	
-	
-	/*
-	stage('Publish Test Coverage Report') {
-         steps {
-           step([$class: 'JacocoPublisher', 
-                execPattern: '**/build/jacoco/*.exec',
-                classPattern: '**/build/classes',
-                sourcePattern: 'src/main/java',
-                exclusionPattern: 'src/test*'
-                ])
-            }
-        }
-        */
-        
+   	
     stage('Jacoco Coverage Report') {
         steps{
             jacoco()
@@ -46,6 +28,7 @@ pipeline {
 		 -Dsonar.host.url=http://localhost:9000 \
  		-Dsonar.login=6e8970dc1b520dc610f0bbdf406a47cb25ad5c15'''
           }
+    }
 	
 	stage('Maven Package'){
 		steps{
